@@ -804,6 +804,15 @@ class format_onetopic extends core_courseformat\base {
             }
         }
     }
+
+    /**
+     * Indentation is deprecated.
+     * 
+     * @return bool 
+     */
+    public function uses_indentation(): bool {
+        return false;
+    }
 }
 
 /**
