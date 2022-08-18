@@ -251,16 +251,25 @@ class format_onetopic extends core_courseformat\base {
     public function supports_ajax() {
         global $COURSE, $USER;
 
+        $disableajax = optional_param('onetopic_da', -1, PARAM_INT);
+
         if (!isset($USER->onetopic_da)) {
             $USER->onetopic_da = array();
         }
 
-        if (empty($COURSE)) {
-            $disableajax = false;
+        if ($disableajax !== -1) {
+            if ($disableajax === 0) {
+                $USER->onetopic_da[$COURSE->id] = false;
+            } else {
+                $USER->onetopic_da[$COURSE->id] = true;
+            }
         } else {
-            $disableajax = isset($USER->onetopic_da[$COURSE->id]) ? $USER->onetopic_da[$COURSE->id] : false;
+            if (empty($COURSE)) {
+                $disableajax = false;
+            } else {
+                $disableajax = isset($USER->onetopic_da[$COURSE->id]) ? $USER->onetopic_da[$COURSE->id] : false;
+            }
         }
-
         $ajaxsupport = new stdClass();
         $ajaxsupport->capable = !$disableajax;
         return $ajaxsupport;
@@ -807,8 +816,8 @@ class format_onetopic extends core_courseformat\base {
 
     /**
      * Indentation is deprecated.
-     * 
-     * @return bool 
+     *
+     * @return bool
      */
     public function uses_indentation(): bool {
         return false;
