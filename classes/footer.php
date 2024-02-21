@@ -63,7 +63,7 @@ class footer implements \renderable, \templatable {
         global $COURSE, $PAGE, $CFG, $OUTPUT;
 
         $format = $this->format;
-        $currentsection = $this->format->get_section_number();
+        $currentsection = $this->format->get_sectionnum();
 
         $data = (object)[
             'uniqid' => $format->uniqid,

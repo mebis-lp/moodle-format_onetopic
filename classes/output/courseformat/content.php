@@ -68,7 +68,7 @@ class content extends content_base {
         global $PAGE;
         $format = $this->format;
         $course = $format->get_course();
-        $currentsection = $this->format->get_section_number();
+        $currentsection = $this->format->get_sectionnum();
 
         // If format use the section 0 as a separate section so remove from the list.
         $sections = $this->export_sections($output);
@@ -176,7 +176,7 @@ class content extends content_base {
      */
     private function get_sections_to_display(course_modinfo $modinfo): array {
         $sections = [];
-        $singlesection = $this->format->get_section_number();
+        $singlesection = $this->format->get_sectionnum();
         $sections[] = $modinfo->get_section_info($singlesection);
 
         return $sections;

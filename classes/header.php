@@ -69,7 +69,7 @@ class header implements \renderable, \templatable {
         $course->realcoursedisplay = property_exists($course, 'coursedisplay') ? $course->coursedisplay : false;
 
         $firstsection = ($course->realcoursedisplay == COURSE_DISPLAY_MULTIPAGE) ? 1 : 0;
-        $currentsection = $this->format->get_section_number();
+        $currentsection = $this->format->get_sectionnum();
 
         $coursecontext = \context_course::instance($course->id);
         $canviewhidden = has_capability('moodle/course:viewhiddensections', $coursecontext);
@@ -154,9 +154,6 @@ class header implements \renderable, \templatable {
         ];
 
         // Include course format js module.
-        $PAGE->requires->js('/course/format/topics/format.js');
-        $PAGE->requires->js('/course/format/onetopic/format.js');
-        $PAGE->requires->yui_module('moodle-core-notification-dialogue', 'M.course.format.dialogueinit');
         $PAGE->requires->js_call_amd('format_onetopic/main', 'init', $params);
 
         return $data;
@@ -175,7 +172,7 @@ class header implements \renderable, \templatable {
         $course = $this->format->get_course();
         $sections = $modinfo->get_section_info_all();
         $numsections = count($sections);
-        $displaysection = $this->format->get_section_number();
+        $displaysection = $this->format->get_sectionnum();
         $enablecustomstyles = get_config('format_onetopic', 'enablecustomstyles');
 
         // Can we view the section in question?
